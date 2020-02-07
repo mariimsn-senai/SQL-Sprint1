@@ -242,15 +242,15 @@ SELECT * FROM TipoUsuario;
 
 -- COMANDO DE INSERIR DADOS 
 
-INSERT INTO	Estilo (Nome) 
+INSERT INTO	Estilo (Nome, IdEstilo) 
 
-VALUES ('Pagode'),('Samba'),('Rock'),('Rap'),('Funk'),('Pop'); 
+VALUES ('Pagode' 1),('Samba', 2),('Rock', 3),('Rap', 4),('Funk', 5),('Pop', 6); 
 
   
 
-INSERT INTO Artista (Nome) 
+INSERT INTO Artista (Nome, IdArtista) 
 
-VALUES ('Ferrugem'),('Post Malone'),('MC Kevin'); 
+VALUES ('Ferrugem', 1),('Post Malone', 2),('MC Kevin', 3); 
 
   
 
@@ -364,6 +364,44 @@ Order By IdAlbum ASC;
 --COUNT (conta as coisas que tem na tabela)
 
 SELECT COUNT(IdAlbum) FROM Albuns;
+
+-- SELECIONAR OS ALBUNS DO MESMO ARTISTA 
+SELECT * FROM Albuns WHERE IdArtista = 2;
+
+--USANDO INNER JOIN (JUNÇÃO DE DUAS OU MAIS TABELA)
+SELECT  Artista.Nome, Albuns.Nome FROM Artista
+INNER JOIN Albuns ON Artista.IdArtista = Albuns.IdEstilo
+WHERE Albuns.IdArtista = 2;
+
+--SELECIONAR OS AALBUNS LANÇADOS NA MESMA DATA
+SELECT * FROM Albuns WHERE DataLancamento = '21/03/2001';
+
+-- INNER JOIN
+SELECT * FROM Artista
+INNER JOIN Albuns ON Artista.IdArtista = Albuns.IdArtista
+WHERE DataLancamento = '21/03/2001';
+
+--SELECIONAR ALBUNS E ARTISTAS E ORDENAR POR DATA DE LANÇAMENTO (MAIS ANTIGO PARA O MAIS RECENTE)
+SELECT * FROM Albuns ORDER BY DataLancamento asc;
+
+-- COM JOIN 
+SELECT Artista.Nome as NomeArtista, Albuns.Nome as NomeAlbum, DataLancamento -- atributos com o apeldo
+FROM Artista 
+INNER JOIN Albuns ON Artista.IdArtista = Albuns.IdArtista
+ORDER BY DataLancamento asc;
+
+--SELECIONAR ARTISTAS DO MESMO ESTILO MUSICAL
+SELECT IdArtista, IdEstilo from Albuns where IdEstilo = 2;
+
+--DESAFIO REALIZAR EXERCICIOS 
+--COM INNER JOIN, COM 3 TABELAS ( NOME DO ARTISTA, ALBUM E ESTILO) 
+SELECT Artista.Nome as IdArtista, Estilo.Nome
+from artista
+INNER JOIN Albuns ON Artista.IdArtista = Albuns.IdArtista
+INNER JOIN Estilo ON Albuns.IdEstilo = Estilo.IdEstilo
+where Estilo.IdEstilo = 2;
+
+
 
 --EXERCÍCIO SPRINT 1
 
